@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portail Entreprise - Connexion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                0 0 1px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            padding: 40px;
+            position: relative;
+            z-index: 10;
+            overflow-y: auto;
+        }
+
+        .container::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .container::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+
+        .container::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #3b82f6, #2563eb, #1d4ed8);
+            border-radius: 12px 12px 0 0;
+            transition: background 0.3s;
+        }
+
+        .container.alert-mode::before {
+            background: linear-gradient(90deg, #ef4444, #dc2626, #b91c1c);
+        }
+
+        /* ÉCRAN 1 : CONNEXION */
+        .login-screen {
+            display: block;
+        }
+
+        .login-screen.hidden {
+            display: none;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 20px;
+        }
+
+        .logo {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            border-radius: 12px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #1e40af;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .security-badge {
+            display: inline-block;
+            background: #dbeafe;
+            border: 1px solid #3b82f6;
+            padding: 4px 12px;
+            margin-top: 10px;
+            font-size: 10px;
+            color: #1e40af;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #334155;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #1e293b;
+            transition: all 0.3s;
+        }
+
+        input[type="email"]::placeholder,
+        input[type="password"]::placeholder {
+            color: #94a3b8;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 8px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #3b82f6;
+        }
+
+        .checkbox-label {
+            font-size: 14px;
+            color: #64748b;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .links a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .links a:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+
+        .divider {
+            margin: 24px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+            background: #e5e7eb;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 16px;
+            color: #94a3b8;
+            font-size: 13px;
+            position: relative;
+        }
+
+        /* ÉCRAN 2 : CHARGEMENT */
+        .loading-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .loading-screen.active {
+            display: block;
+        }
+
+        .loading-icon {
+            width: 80px;
+            height: 80px;
+            border: 3px solid #e5e7eb;
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #1e40af;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .loading-progress {
+            width: 100%;
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .loading-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #2563eb);
+            width: 0%;
+            transition: width 3s ease-out;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+
+        .loading-bar.animate {
+            width: 100%;
+        }
+
+        .loading-steps {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .step {
+            color: #64748b;
+            font-size: 14px;
+            margin: 10px 0;
+            opacity: 0;
+            padding-left: 20px;
+            position: relative;
+            transition: opacity 0.5s;
+        }
+
+        .step.active {
+            opacity: 1;
+        }
+
+        .step::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+            font-weight: bold;
+        }
+
+        /* ÉCRAN 3 : ALERTE */
+        .alert-screen {
+            display: none;
+            text-align: center;
+            animation: alertAppear 0.5s ease-out;
+        }
+
+        .alert-screen.active {
+            display: block;
+        }
+
+        @keyframes alertAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .alert-warning-text {
+            color: #dc2626;
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 30px;
+            letter-spacing: 8px;
+            animation: blink 1s step-start infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .alert-title {
+            color: #dc2626;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .alert-subtitle {
+            color: #475569;
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .stolen-data {
+            background: #fee2e2;
+            border: 2px solid #dc2626;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .stolen-data h3 {
+            color: #991b1b;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .data-row {
+            background: white;
+            border-left: 4px solid #dc2626;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        .data-label {
+            color: #64748b;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .data-value {
+            color: #1e293b;
+            font-size: 16px;
+            font-weight: 600;
+            word-break: break-all;
+        }
+
+        .url-comparison {
+            background: #f1f5f9;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .url-comparison h4 {
+            color: #1e40af;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .url-item {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+        }
+
+        .url-label {
+            color: #64748b;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .url-fake {
+            color: #dc2626;
+            font-size: 14px;
+            margin-top: 5px;
+            font-weight: 600;
+            font-family: monospace;
+        }
+
+        .url-real {
+            color: #16a34a;
+            font-size: 14px;
+            margin-top: 5px;
+            font-weight: 600;
+            font-family: monospace;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .warning-box h4 {
+            color: #92400e;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .warning-list {
+            text-align: left;
+            margin-left: 20px;
+        }
+
+        .warning-list li {
+            color: #475569;
+            font-size: 14px;
+            margin: 12px 0;
+            line-height: 1.6;
+        }
+
+        .warning-list li strong {
+            color: #f59e0b;
+        }
+
+        .btn-understand {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-understand:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        }
+
+        /* ÉCRAN 4 : RÉCUPÉRATION MOT DE PASSE */
+        .forgot-password-screen {
+            display: none;
+        }
+
+        .forgot-password-screen.active {
+            display: block;
+        }
+
+        .back-to-login {
+            color: #3b82f6;
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 20px;
+            transition: color 0.3s;
+        }
+
+        .back-to-login:hover {
+            color: #2563eb;
+        }
+
+        .back-to-login::before {
+            content: '←';
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        .info-box {
+            background: #dbeafe;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: #1e40af;
+            line-height: 1.6;
+        }
+
+        .verification-input {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 24px 0;
+        }
+
+        .verification-input input {
+            width: 50px;
+            height: 60px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+
+        .verification-input input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        
+        <!-- ÉCRAN 1 : CONNEXION -->
+        <div class="login-screen" id="loginScreen">
+            <div class="header">
+                <div class="logo">🏢</div>
+                <h1>Portail Entreprise</h1>
+                <p class="subtitle">Accédez à votre espace de travail</p>
+                <div class="security-badge">CONNEXION SÉCURISÉE</div>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Adresse e-mail professionnelle</label>
+                    <input type="email" id="email" name="email" placeholder="prenom.nom@entreprise.com" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember" class="checkbox-label">Rester connecté sur cet appareil</label>
+                </div>
+
+                <button type="submit" class="btn-submit">Se connecter</button>
+
+                <div class="divider">
+                    <span>Aide</span>
+                </div>
+
+                <div class="links">
+                    <a href="#" id="forgotPasswordLink">Mot de passe oublié ?</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- ÉCRAN 2 : CHARGEMENT -->
+        <div class="loading-screen" id="loadingScreen">
+            <div class="loading-icon"></div>
+            <div class="loading-text">Connexion en cours...</div>
+            <div class="loading-progress">
+                <div class="loading-bar" id="loadingBar"></div>
+            </div>
+            <div class="loading-steps">
+                <div class="step" id="step1">Vérification des identifiants...</div>
+                <div class="step" id="step2">Établissement de la connexion sécurisée...</div>
+                <div class="step" id="step3">Chargement du profil utilisateur...</div>
+                <div class="step" id="step4">Accès au portail autorisé...</div>
+            </div>
+        </div>
+
+        <!-- ÉCRAN 3 : ALERTE CONNEXION -->
+        <div class="alert-screen" id="alertScreen">
+            <div class="alert-warning-text">WARNING</div>
+            <h1 class="alert-title">ATTENTION : Données Compromises !</h1>
+            <p class="alert-subtitle">
+                Ceci est une démonstration de sensibilisation au phishing.<br>
+                Dans un scénario réel, vos identifiants auraient été volés par des cybercriminels.
+            </p>
+
+            <div class="stolen-data">
+                <h3>Données qui ont été capturées :</h3>
+                <div class="data-row">
+                    <div class="data-label">Identifiant capturé :</div>
+                    <div class="data-value" id="capturedEmail"></div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Mot de passe capturé (en clair) :</div>
+                    <div class="data-value" id="capturedPassword"></div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Adresse IP :</div>
+                    <div class="data-value">192.168.1.147</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Horodatage :</div>
+                    <div class="data-value" id="timestamp"></div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>💡 Points de sécurité essentiels :</h4>
+                <ul class="warning-list">
+                    <li><strong>Vérifiez l'URL</strong> dans la barre d'adresse avant de saisir vos identifiants</li>
+                    <li><strong>Recherchez le cadenas de sécurité</strong> (HTTPS) et le nom de domaine exact de votre entreprise</li>
+                    <li><strong>Méfiez-vous des fautes</strong> d'orthographe dans l'URL ou des noms de domaine similaires</li>
+                    <li><strong>Ne cliquez jamais</strong> sur des liens dans des emails suspects ou non sollicités</li>
+                    <li><strong>Activez l'authentification à deux facteurs (2FA)</strong> sur tous vos comptes professionnels</li>
+                    <li><strong>Utilisez un gestionnaire de mots de passe</strong> qui détecte automatiquement les faux sites</li>
+                    <li><strong>En cas de doute</strong>, contactez directement votre équipe IT ou cybersécurité</li>
+                </ul>
+            </div>
+
+            <div class="url-comparison">
+                <h4>🔍 VÉRIFIEZ TOUJOURS L'URL AVANT DE VOUS CONNECTER !</h4>
+                <div class="url-item">
+                    <div class="url-label">❌ Exemple d'URL frauduleuse :</div>
+                    <div class="url-fake">https://portail-entreprise-secure.com</div>
+                </div>
+                <div class="url-item">
+                    <div class="url-label">✅ Exemple d'URL légitime :</div>
+                    <div class="url-real">https://portail.votreentreprise.com</div>
+                </div>
+            </div>
+
+            <button class="btn-understand" onclick="resetDemo()">J'ai compris</button>
+        </div>
+
+        <!-- ÉCRAN 4 : RÉCUPÉRATION MOT DE PASSE - EMAIL -->
+        <div class="forgot-password-screen" id="forgotPasswordScreen">
+            <a href="#" class="back-to-login" id="backToLogin">Retour à la connexion</a>
+            
+            <div class="header">
+                <div class="logo">🏢</div>
+                <h1>Récupération de compte</h1>
+                <p class="subtitle">Réinitialisez votre mot de passe</p>
+            </div>
+
+            <div class="info-box">
+                Entrez votre adresse e-mail professionnelle. Nous vous enverrons un code de vérification à 6 chiffres.
+            </div>
+
+            <form id="forgotPasswordForm">
+                <div class="form-group">
+                    <label for="recoveryEmail">Adresse e-mail professionnelle</label>
+                    <input type="email" id="recoveryEmail" name="recoveryEmail" placeholder="prenom.nom@entreprise.com" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Envoyer le code</button>
+            </form>
+        </div>
+
+        <!-- ÉCRAN 5 : CODE DE VÉRIFICATION -->
+        <div class="forgot-password-screen" id="verificationScreen">
+            <a href="#" class="back-to-login" id="backToLogin2">Retour à la connexion</a>
+            
+            <div class="header">
+                <div class="logo">🏢</div>
+                <h1>Code de vérification</h1>
+                <p class="subtitle">Vérifiez votre identité</p>
+            </div>
+
+            <div class="info-box">
+                Un code de vérification à 6 chiffres a été envoyé à <strong id="sentToEmail"></strong>
+            </div>
+
+            <form id="verificationForm">
+                <div class="form-group">
+                    <label>Entrez le code de vérification</label>
+                    <div class="verification-input">
+                        <input type="text" maxlength="1" class="code-input" id="code1" required>
+                        <input type="text" maxlength="1" class="code-input" id="code2" required>
+                        <input type="text" maxlength="1" class="code-input" id="code3" required>
+                        <input type="text" maxlength="1" class="code-input" id="code4" required>
+                        <input type="text" maxlength="1" class="code-input" id="code5" required>
+                        <input type="text" maxlength="1" class="code-input" id="code6" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Vérifier le code</button>
+
+                <div class="links">
+                    <a href="#" id="resendCode">Renvoyer le code</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- ÉCRAN 6 : ALERTE RÉCUPÉRATION -->
+        <div class="alert-screen" id="forgotAlertScreen">
+            <div class="alert-warning-text">WARNING</div>
+            <h1 class="alert-title">ATTENTION : Données Compromises !</h1>
+            <p class="alert-subtitle">
+                Ceci est une démonstration de sensibilisation au phishing.<br>
+                Même la récupération de mot de passe peut être piégée par des cybercriminels.
+            </p>
+
+            <div class="stolen-data">
+                <h3>Données qui ont été capturées :</h3>
+                <div class="data-row">
+                    <div class="data-label">Adresse e-mail capturée :</div>
+                    <div class="data-value" id="capturedRecoveryEmail"></div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Code de vérification saisi :</div>
+                    <div class="data-value" id="capturedVerificationCode"></div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Adresse IP :</div>
+                    <div class="data-value">192.168.1.147</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Horodatage :</div>
+                    <div class="data-value" id="timestamp2"></div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>💡 Points de sécurité essentiels :</h4>
+                <ul class="warning-list">
+                    <li><strong>Vérifiez l'URL</strong> même pour la récupération de mot de passe</li>
+                    <li><strong>Ne saisissez jamais de codes</strong> de vérification sur des sites suspects</li>
+                    <li><strong>Les vrais codes de vérification</strong> sont généralement envoyés par SMS ou app d'authentification</li>
+                    <li><strong>Méfiez-vous des emails</strong> vous demandant de réinitialiser votre mot de passe</li>
+                    <li><strong>Contactez votre IT</strong> si vous recevez une demande de réinitialisation non sollicitée</li>
+                </ul>
+            </div>
+
+            <div class="url-comparison">
+                <h4>🔍 Les pages de récupération sont aussi piégées !</h4>
+                <div class="url-item">
+                    <div class="url-label">❌ Exemple d'URL frauduleuse :</div>
+                    <div class="url-fake">https://recuperation-portail-entreprise.com</div>
+                </div>
+                <div class="url-item">
+                    <div class="url-label">✅ Exemple d'URL légitime :</div>
+                    <div class="url-real">https://portail.votreentreprise.com/recuperation</div>
+                </div>
+            </div>
+
+            <button class="btn-understand" onclick="resetDemo()">J'ai compris</button>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables pour stocker les données
+            let capturedEmail = '';
+            let capturedPassword = '';
+            let capturedRecoveryEmail = '';
+            let capturedVerificationCode = '';
+
+            // ===== CONNEXION PRINCIPALE =====
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    capturedEmail = document.getElementById('email').value;
+                    capturedPassword = document.getElementById('password').value;
+                    
+                    console.log('Email capturé:', capturedEmail);
+                    console.log('Mot de passe capturé:', capturedPassword);
+                    
+                    showLoadingScreen();
+                });
+            }
+
+            function showLoadingScreen() {
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('loadingScreen').classList.add('active');
+                
+                setTimeout(() => {
+                    document.getElementById('loadingBar').classList.add('animate');
+                }, 100);
+                
+                const steps = [
+                    { id: 'step1', delay: 500 },
+                    { id: 'step2', delay: 1200 },
+                    { id: 'step3', delay: 2000 },
+                    { id: 'step4', delay: 2800 }
+                ];
+                
+                steps.forEach(step => {
+                    setTimeout(() => {
+                        document.getElementById(step.id).classList.add('active');
+                    }, step.delay);
+                });
+                
+                setTimeout(() => {
+                    showAlertScreen();
+                }, 3500);
+            }
+
+            function showAlertScreen() {
+                document.getElementById('loadingScreen').classList.remove('active');
+                document.getElementById('mainContainer').classList.add('alert-mode');
+                document.getElementById('alertScreen').classList.add('active');
+                
+                document.getElementById('capturedEmail').textContent = capturedEmail;
+                document.getElementById('capturedPassword').textContent = capturedPassword;
+                
+                const now = new Date();
+                const timestamp = now.toLocaleString('fr-FR', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                document.getElementById('timestamp').textContent = timestamp;
+            }
+
+            // ===== RÉCUPÉRATION DE MOT DE PASSE =====
+            const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+            if (forgotPasswordLink) {
+                forgotPasswordLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.getElementById('loginScreen').classList.add('hidden');
+                    document.getElementById('forgotPasswordScreen').classList.add('active');
+                    document.getElementById('recoveryEmail').focus();
+                });
+            }
+
+            // Boutons retour
+            const backButtons = document.querySelectorAll('.back-to-login');
+            backButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    resetDemo();
+                });
+            });
+
+            // Formulaire récupération email
+            const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+            if (forgotPasswordForm) {
+                forgotPasswordForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    capturedRecoveryEmail = document.getElementById('recoveryEmail').value;
+                    console.log('Email de récupération:', capturedRecoveryEmail);
+                    
+                    document.getElementById('forgotPasswordScreen').classList.remove('active');
+                    document.getElementById('verificationScreen').classList.add('active');
+                    document.getElementById('sentToEmail').textContent = capturedRecoveryEmail;
+                    document.getElementById('code1').focus();
+                });
+            }
+
+            // Formulaire code de vérification
+            const verificationForm = document.getElementById('verificationForm');
+            if (verificationForm) {
+                verificationForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    capturedVerificationCode = '';
+                    for (let i = 1; i <= 6; i++) {
+                        capturedVerificationCode += document.getElementById('code' + i).value;
+                    }
+                    console.log('Code capturé:', capturedVerificationCode);
+                    
+                    document.getElementById('verificationScreen').classList.remove('active');
+                    document.getElementById('mainContainer').classList.add('alert-mode');
+                    document.getElementById('forgotAlertScreen').classList.add('active');
+                    document.getElementById('capturedRecoveryEmail').textContent = capturedRecoveryEmail;
+                    document.getElementById('capturedVerificationCode').textContent = capturedVerificationCode;
+                    
+                    const now = new Date();
+                    const timestamp = now.toLocaleString('fr-FR', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    });
+                    document.getElementById('timestamp2').textContent = timestamp;
+                });
+            }
+
+            // Auto-focus des champs de code
+            const codeInputs = document.querySelectorAll('.code-input');
+            codeInputs.forEach((input, index) => {
+                input.addEventListener('input', function() {
+                    if (this.value.length === 1 && index < codeInputs.length - 1) {
+                        codeInputs[index + 1].focus();
+                    }
+                });
+                
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && this.value === '' && index > 0) {
+                        codeInputs[index - 1].focus();
+                    }
+                });
+            });
+
+            // Renvoyer le code
+            const resendCode = document.getElementById('resendCode');
+            if (resendCode) {
+                resendCode.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Un nouveau code a été envoyé (simulation)');
+                });
+            }
+
+            // ===== FONCTION DE RÉINITIALISATION =====
+            window.resetDemo = function() {
+                // Cacher tous les écrans
+                document.getElementById('alertScreen').classList.remove('active');
+                document.getElementById('loadingScreen').classList.remove('active');
+                document.getElementById('forgotAlertScreen').classList.remove('active');
+                document.getElementById('forgotPasswordScreen').classList.remove('active');
+                document.getElementById('verificationScreen').classList.remove('active');
+                
+                // Afficher l'écran de connexion
+                document.getElementById('loginScreen').classList.remove('hidden');
+                document.getElementById('mainContainer').classList.remove('alert-mode');
+                
+                // Réinitialiser les formulaires
+                document.getElementById('loginForm').reset();
+                if (document.getElementById('forgotPasswordForm')) {
+                    document.getElementById('forgotPasswordForm').reset();
+                }
+                if (document.getElementById('verificationForm')) {
+                    document.getElementById('verificationForm').reset();
+                }
+                
+                // Réinitialiser la barre de progression
+                document.getElementById('loadingBar').classList.remove('animate');
+                
+                // Réinitialiser les étapes
+                document.querySelectorAll('.step').forEach(step => {
+                    step.classList.remove('active');
+                });
+                
+                // Réinitialiser les variables
+                capturedEmail = '';
+                capturedPassword = '';
+                capturedRecoveryEmail = '';
+                capturedVerificationCode = '';
+                
+                // Focus sur le champ email
+                document.getElementById('email').focus();
+            }
+        });
+    </script>
+</body>
+</html>
